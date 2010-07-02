@@ -7,6 +7,7 @@
 */
 var yqlgeo = function(){
   var callback;
+  var callback_called = false;
   function get(){
     var args = arguments;
     for(var i=0;i<args.length;i++){
@@ -43,6 +44,9 @@ var yqlgeo = function(){
     if(navigator.geolocation){
        navigator.geolocation.getCurrentPosition(
         function(position){
+	      if (callback_called)
+		     return;
+	      callback_called = 1;
           getFromLatLon(position.coords.latitude,
                         position.coords.longitude);
         },
